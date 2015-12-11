@@ -8,12 +8,14 @@ public class ScriptVehicleController : MonoBehaviour
 
 	void Awake() 
     {
+        //Sets up the vehicle
         stats.SetupVehicle();
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
+        //Changes Speed
         ModifySpeed();
 	}
 
@@ -21,15 +23,16 @@ public class ScriptVehicleController : MonoBehaviour
     {
         if (Input.GetAxis("Vertical") != 0)
         {
-            if (Input.GetAxis("Vertical") > 0 && stats.currSpeed < stats.minSpeed)
+            //Speed Up
+            if (Input.GetAxis("Vertical") > 0 && stats.currSpeed >= stats.minSpeed && stats.currSpeed < stats.maxSpeed - .1f)
             {
-                stats.currSpeed -= Input.GetAxis("Vertical") * (stats.currSpeed * (stats.accel * Time.deltaTime));
+                stats.currSpeed += Input.GetAxis("Vertical") * ((stats.accel * Time.deltaTime) / stats.accel);
             }
-            if (Input.GetAxis("Vertical") < 0 && stats.currSpeed >= stats.maxSpeed)
+            //Slow Down
+            if (Input.GetAxis("Vertical") < 0 && stats.currSpeed < stats.maxSpeed && stats.currSpeed >= stats.minSpeed + .1f)
             {
-                stats.currSpeed += Input.GetAxis("Vertical") * (stats.currSpeed * (stats.brake * Time.deltaTime));
+                stats.currSpeed += Input.GetAxis("Vertical") * ((stats.brake * Time.deltaTime) / stats.brake);
             }
-            Debug.Log("Called");
         }
     }
 }

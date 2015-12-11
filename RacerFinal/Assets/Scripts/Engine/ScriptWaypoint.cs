@@ -19,4 +19,5 @@ public class ScriptWaypoint : MonoBehaviour
     public MovementTypes moveType;
     public Lane lane;
     public Transform startPoint, endPoint, curvePoint;
+    public bool hasBurnout = false;
 }

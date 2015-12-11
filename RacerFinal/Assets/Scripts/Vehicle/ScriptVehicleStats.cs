@@ -34,7 +34,7 @@ public class ScriptVehicleStats : MonoBehaviour
         switch (vehicleType)
         { 
             case VehicleTypes.CAR:
-                maxSpeed = 1f;
+                maxSpeed = 1.1f;
                 minSpeed = 0f;
                 accel = 0.1f;
                 brake = 0.2f;

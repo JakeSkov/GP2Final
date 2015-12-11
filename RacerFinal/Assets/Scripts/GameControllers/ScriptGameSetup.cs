@@ -7,6 +7,11 @@ public class ScriptGameSetup : MonoBehaviour
 
     public Transform spawnPointLeft, spawnPointMiddle, spawnPointRight;
 
+    void Start()
+    {
+        StartSetup();
+    }
+
     void StartSetup()
     {
         for (int i = 0; i < vehicles.Length; i++)

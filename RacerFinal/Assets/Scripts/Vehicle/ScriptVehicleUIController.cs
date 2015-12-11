@@ -2,35 +2,44 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// @Author Jake Skov
+/// </summary>
 public class ScriptVehicleUIController : MonoBehaviour 
 {
-    public ScriptVehicleMove moveStats = new ScriptVehicleMove();
-    public ScriptVehicleStats vehicleStats = new ScriptVehicleStats();
+    //Scripts
+    public ScriptVehicleMove moveStats;
+    public ScriptVehicleStats vehicleStats;
 
+    //Text
     public Text curSpeedText;
     public Text burnoutText;
 
-    private string burnPercent;
+    //Ints
+    private int burnPercent;
 
-	// Use this for initialization
-	void Start () 
-    {
-        burnoutText.text = "Nope";
-	}
+    //Bools
+    public bool isDead;
 	
 	// Update is called once per frame
 	void Update () 
     {
-        burnPercent = (moveStats.burnTime / vehicleStats.currSpeed).ToString() + "%";
+        //Calculates the percentage of burnout
+        Debug.Log(moveStats.burnTime / vehicleStats.burnout);
+        burnPercent = (int)((moveStats.burnTime / vehicleStats.burnout) * 10);
         UpdateUI();
 	}
 
     void UpdateUI()
     {
-        if ((moveStats.burnTime / vehicleStats.currSpeed) < 0)
+        //Displays UI Elements
+        burnoutText.text = burnPercent.ToString() + "%";
+        curSpeedText.text = moveStats.stats.currSpeed.ToString();
+
+        if (burnPercent >= 100)
         {
-            burnPercent = "0";
+            moveStats.stats.currSpeed = 0;
+            isDead = true;
         }
-        burnoutText.text = string.Format("{0}%", burnPercent);
     }
 }
